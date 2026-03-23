@@ -700,7 +700,7 @@ button:active {
     .center-buttons {
         width: 100%;
         gap: 6px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     #reset-game,
@@ -708,7 +708,7 @@ button:active {
     #start-clock {
         min-width: 0;
         height: 34px;
-        flex: 1 1 112px;
+        flex: 1;
         font-size: 0.5rem;
     }
 
