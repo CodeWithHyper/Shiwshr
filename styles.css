@@ -540,7 +540,7 @@ button:active {
     #reset-game,
     #next-period,
     #start-clock {
-        flex: 1 1 92px;
+        flex: 1;
         min-width: 0;
         height: 32px;
         font-size: 0.48rem;
