@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Manrope:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🏀</text></svg>"/>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Swishr</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="utility-bar">
+        <button id="undo-action" class="utility-btn icon-only" aria-label="Undo last action" title="Undo last action">↶</button>
+        <button id="clear-saved-game" class="utility-btn icon-only" aria-label="Clear saved game" title="Clear saved game">⌫</button>
+        <button id="open-quick-edit" class="utility-btn icon-only" aria-label="Quick edit" title="Quick edit">✎</button>
+        <button id="fullscreen-toggle" class="utility-btn icon-only" aria-label="Enter fullscreen" title="Enter fullscreen">⤢</button>
+      </div>
+
+      <div class="team" id="home">
+        <span class="team-label team-label-home">HOME</span>
+        <input
+          id="home-name-input"
+          class="team-name-input"
+          type="text"
+          maxlength="14"
+          value="HOME"
+          aria-label="Home team name"
+        />
+        <h2 id="home-name">HOME</h2>
+        <div class="score-card">
+          <p id="home-score">0</p>
+        </div>
+        <div class="buttons">
+          <button class="inc-btn" data-team="home" data-points="1">+1</button>
+          <button class="inc-btn" data-team="home" data-points="2">+2</button>
+          <button class="inc-btn" data-team="home" data-points="3">+3</button>
+          <button class="dec-btn" data-team="home" data-points="-1">-1</button>
+        </div>
+        <div class="foul-panel">
+          <span class="foul-label">FOULS</span>
+          <div class="foul-controls">
+            <button class="foul-btn" data-team="home" data-foul-delta="-1">-</button>
+            <p id="home-fouls" class="foul-value">0</p>
+            <button class="foul-btn" data-team="home" data-foul-delta="1">+</button>
+          </div>
+          <p id="home-bonus" class="bonus-indicator">NO BONUS</p>
+        </div>
+      </div>
+
+      <div class="center">
+        <p id="period-label" class="period-label">Q1</p>
+        <p class="label">GAME CLOCK</p>
+        <p id="game-clock">10:00</p>
+        <div class="shot-clock">
+          <svg width="132" height="132" viewBox="0 0 100 100">
+            <circle
+              id="ring-bg"
+              cx="50"
+              cy="50"
+              r="40"
+              fill="none"
+              stroke="#333"
+              stroke-width="6"
+            />
+            <circle
+              id="ring"
+              cx="50"
+              cy="50"
+              r="40"
+              fill="none"
+              stroke="#e05a2b"
+              stroke-width="6"
+              stroke-dasharray="251"
+              stroke-dashoffset="0"
+              transform="rotate(-90 50 50)"
+            />
+          </svg>
+          <span class="shot-label">SHOT</span>
+          <p id="shot-timer">24</p>
+        </div>
+
+        <p id="status-text" class="status-text">LIVE</p>
+
+        <div class="possession-controls">
+          <button id="home-possession" class="poss-btn active">24 SEC</button>
+          <button id="away-possession" class="poss-btn">14 SEC</button>
+        </div>
+
+        <div class="center-buttons">
+          <button id="reset-game">RESET GAME</button>
+          <button id="start-clock">
+            <span class="play-icon">▶</span>
+            <span class="btn-stack">START<br />CLOCK</span>
+          </button>
+          <button id="next-period">NEXT PERIOD</button>
+        </div>
+      </div>
+
+      <div class="team" id="away">
+        <span class="team-label team-label-away">AWAY</span>
+        <input
+          id="away-name-input"
+          class="team-name-input"
+          type="text"
+          maxlength="14"
+          value="HOME"
+          aria-label="Away team name"
+        />
+        <h2 id="away-name">AWAY</h2>
+        <div class="score-card">
+          <p id="away-score">0</p>
+        </div>
+        <div class="buttons">
+          <button class="inc-btn" data-team="away" data-points="1">+1</button>
+          <button class="inc-btn" data-team="away" data-points="2">+2</button>
+          <button class="inc-btn" data-team="away" data-points="3">+3</button>
+          <button class="dec-btn" data-team="away" data-points="-1">-1</button>
+        </div>
+        <div class="foul-panel">
+          <span class="foul-label">FOULS</span>
+          <div class="foul-controls">
+            <button class="foul-btn" data-team="away" data-foul-delta="-1">-</button>
+            <p id="away-fouls" class="foul-value">0</p>
+            <button class="foul-btn" data-team="away" data-foul-delta="1">+</button>
+          </div>
+          <p id="away-bonus" class="bonus-indicator">NO BONUS</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="quick-edit-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="quick-edit-title">
+      <div class="modal-card">
+        <h3 id="quick-edit-title">Quick Edit</h3>
+
+        <div class="modal-grid">
+          <label class="modal-field" for="edit-period">
+            <span>Period</span>
+            <input id="edit-period" type="number" min="1" max="12" />
+          </label>
+
+          <label class="modal-field" for="edit-minutes">
+            <span>Minutes</span>
+            <input id="edit-minutes" type="number" min="0" max="99" />
+          </label>
+
+          <label class="modal-field" for="edit-seconds">
+            <span>Seconds</span>
+            <input id="edit-seconds" type="number" min="0" max="59" />
+          </label>
+
+          <label class="modal-field" for="edit-shot">
+            <span>Shot Clock</span>
+            <input id="edit-shot" type="number" min="0" max="24" />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button id="close-quick-edit" class="utility-btn">CANCEL</button>
+          <button id="apply-quick-edit" class="utility-btn utility-btn-primary">APPLY</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
