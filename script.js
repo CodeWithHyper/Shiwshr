@@ -24,6 +24,7 @@ const undoAction = document.getElementById('undo-action');
 const clearSavedGame = document.getElementById('clear-saved-game');
 const fullscreenToggle = document.getElementById('fullscreen-toggle');
 const openQuickEdit = document.getElementById('open-quick-edit');
+const swapSides = document.getElementById('swap-sides');
 const quickEditModal = document.getElementById('quick-edit-modal');
 const closeQuickEdit = document.getElementById('close-quick-edit');
 const applyQuickEdit = document.getElementById('apply-quick-edit');
@@ -495,6 +496,21 @@ function resetGameHandler() {
   saveState();
 }
 
+function swapSidesHandler() {
+  captureUndoSnapshot();
+
+  [homePoints, awayPoints] = [awayPoints, homePoints];
+  [homeFouls, awayFouls] = [awayFouls, homeFouls];
+
+  [homeNameInput.value, awayNameInput.value] = [awayNameInput.value, homeNameInput.value];
+  [homeName.textContent, awayName.textContent] = [awayName.textContent, homeName.textContent];
+
+  updateScoreboard();
+  updateFoulBoard();
+  setStatus('SIDES SWAPPED');
+  saveState();
+}
+
 function handleScoreClick(event) {
   captureUndoSnapshot();
 
@@ -598,6 +614,7 @@ fullscreenToggle.addEventListener('click', async () => {
 });
 
 openQuickEdit.addEventListener('click', openQuickEditModal);
+swapSides.addEventListener('click', swapSidesHandler);
 closeQuickEdit.addEventListener('click', closeQuickEditModal);
 applyQuickEdit.addEventListener('click', applyQuickEditValues);
 

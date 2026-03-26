@@ -54,6 +54,10 @@ body {
     color: #ff9a9a;
 }
 
+#swap-sides {
+    color: #ffcf76;
+}
+
 .utility-btn-primary {
     background: linear-gradient(90deg, #67daff 0%, #18b8ec 100%);
     color: #04283a;
